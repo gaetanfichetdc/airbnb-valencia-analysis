@@ -7,6 +7,7 @@ It covers data ingestion (PostgreSQL), cleaning, spatio-temporal queries, and vi
 
 ## 📂 Repository structure
 
+```
 ├── airbnb_valencia.sql              # SQL script to create & load all tables
 ├── calendar.csv                     # Availability and daily prices
 ├── create_listings.sql              # Create table schema for listings
@@ -17,7 +18,10 @@ It covers data ingestion (PostgreSQL), cleaning, spatio-temporal queries, and vi
 ├── population_data.csv              # Population by neighbourhood
 ├── population_data_time.csv         # Population by neighbourhood & year
 ├── queries_valencia.sql             # Analysis queries (heatmaps, price trends, etc.)
-└── reviews.csv                      # Review history (2010–2025)
+└── reviews.csv.gz                   # Review history (compressed, 2010–2025)
+```
+
+---
 
 ## 🛠️ Setup
 
@@ -25,8 +29,26 @@ It covers data ingestion (PostgreSQL), cleaning, spatio-temporal queries, and vi
 ```bash
 createdb airbnb_valencia
 psql -d airbnb_valencia -f airbnb_valencia.sql
+```
 
+⚠️ Note: The `reviews.csv` dataset is provided as a compressed file (`reviews.csv.gz`).  
+Decompress it before running the SQL script if needed:
+
+```bash
+gunzip reviews.csv.gz
+```
 
 ### 2. Run the analysis queries
 ```bash
 psql -d airbnb_valencia -f queries_valencia.sql
+```
+
+---
+
+## 📊 Visualization
+
+- Connect Metabase (or another BI tool) to the `airbnb_valencia` database.  
+- Use the queries in `queries_valencia.sql` to generate:  
+  - Heatmaps of Airbnb listings in Valencia  
+  - Yearly/monthly evolution (2010–2025)  
+  - Price trends vs. number of reviews  
